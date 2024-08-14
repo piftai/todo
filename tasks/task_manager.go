@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"time"
+	"fmt"
 )
 
 type TaskManager struct {
@@ -34,6 +35,7 @@ func (tm *TaskManager) saveTasks() error {
 	if err != nil {
 		return err
 	}
+	fmt.Printf(tm.filePath)
 	return os.WriteFile(tm.filePath, data, 0644)
 }
 
@@ -47,5 +49,9 @@ func (tm *TaskManager) AddTask(description string) error {
 	}
 	tm.tasks = append(tm.tasks, task)
 	return tm.saveTasks()
+}
+
+func (tm *TaskManager) ListTasks() ([]byte, error) {
+	return os.ReadFile(tm.filePath)
 }
 
