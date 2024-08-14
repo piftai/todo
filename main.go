@@ -1,9 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"todo/tasks"
+)
 
 func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: cli-todo [command] [description]")
+	}
 
-	fmt.Printf("Hi, my cli!")
+	command := os.Args[1]
+	tm, err := tasks.NewTaskManager("tasks.json")
+	if err != nil {
+		fmt.Println("Error initializing task manager: ", err)
+		return
+	}
 
+	switch command {
+	case "add":
+		description := os.Args[2]
+		err := tm.AddTask(description)
+		if err != nil {
+			fmt.Println("Error adding task: ", err)
+		} else {
+			fmt.Println(tm.loadTasks)
+		}
+	}
 }
