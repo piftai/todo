@@ -58,3 +58,15 @@ func (tm *TaskManager) ListTasks() ([]byte, error) {
 	return os.ReadFile(tm.filePath)
 }
 
+func (tm *TaskManager) UpdateTask(taskID int, description string) {
+	
+}
+
+func (tm *TaskManager) ShowTask(taskID int) (*Task) {
+	for _, task := range tm.tasks {
+		if task.ID == taskID {
+			return &task
+		}
+	}
+	return nil
+}
