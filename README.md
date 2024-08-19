@@ -5,6 +5,9 @@ I decided to write this app because: i did not know about you can put your comma
 Also i want fill this readme file to you understand how this app works.
 
 USAGE:
+
 [add] - add a task ./main add <description>
+
 [list] - show a list of all tasks ./main list
+
 [update] - update task by id ./main update <id> <new description>
