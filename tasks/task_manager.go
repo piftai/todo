@@ -53,6 +53,7 @@ func (tm *TaskManager) AddTask(description string) error {
 	return tm.saveTasks()
 }
 
+// func
 func (tm *TaskManager) ListTasks() ([]byte, error) {
 	return os.ReadFile(tm.filePath)
 }
