@@ -39,6 +39,8 @@ func (tm *TaskManager) saveTasks() error {
 	return os.WriteFile(tm.filePath, data, 0644)
 }
 
+// add task
+
 func (tm *TaskManager) AddTask(description string) error {
 	task := Task {
 		ID: len(tm.tasks) + 1,
