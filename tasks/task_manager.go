@@ -58,6 +58,7 @@ func (tm *TaskManager) ListTasks() ([]byte, error) {
 	return os.ReadFile(tm.filePath)
 }
 
+// return updated task by id and new description
 func (tm *TaskManager) UpdateTask(taskID int, description string) {
 	
 }
