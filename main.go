@@ -38,7 +38,7 @@ func main() {
 		taskIDStr := os.Args[2]
     	taskID, err := strconv.Atoi(taskIDStr)
 		_ = err
-		fmt.Println(tm.ShowTask(taskID))
+		fmt.Println(tm.ShowTask(taskID).Description)
 	}
 
 }

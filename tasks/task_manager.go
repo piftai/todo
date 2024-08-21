@@ -63,6 +63,7 @@ func (tm *TaskManager) UpdateTask(taskID int, description string) {
 	
 }
 
+// return pointer of task by id 
 func (tm *TaskManager) ShowTask(taskID int) (*Task) {
 	for _, task := range tm.tasks {
 		if task.ID == taskID {
