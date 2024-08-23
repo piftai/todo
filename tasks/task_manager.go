@@ -59,9 +59,16 @@ func (tm *TaskManager) ListTasks() ([]byte, error) {
 }
 
 // return updated task by id and new description
-func (tm *TaskManager) UpdateTask(taskID int, description string) {
-	
+func (tm *TaskManager) UpdateTask(taskID int, description string) (*Task) {
+	for _, task := range tm.tasks {
+		if task.ID == taskID {
+			task.Update(description)
+			return &task
+		}
+	}
+	return nil
 }
+
 
 // return pointer of task by id 
 func (tm *TaskManager) ShowTask(taskID int) (*Task) {
@@ -72,3 +79,4 @@ func (tm *TaskManager) ShowTask(taskID int) (*Task) {
 	}
 	return nil
 }
+

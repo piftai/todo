@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 	"os"
-	"todo/tasks"
 	"strconv"
+	"todo/tasks"
 )
 
 func main() {
 	// need to add a for cycle that will run for each word in user-input
-	
-	
+
 	command := os.Args[1]
 	tm, err := tasks.NewTaskManager("tasks.json")
 	if err != nil {
@@ -36,8 +35,10 @@ func main() {
 		}
 	case "update":
 		taskIDStr := os.Args[2]
-    	taskID, err := strconv.Atoi(taskIDStr)
+		taskID, err := strconv.Atoi(taskIDStr)
 		_ = err
+		description := os.Args[3]
+		tm.UpdateTask(taskID, description)
 		fmt.Println(tm.ShowTask(taskID).Description)
 	}
 
