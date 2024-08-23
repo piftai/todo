@@ -9,3 +9,8 @@ type Task struct {
 	CreatedAt time.Time `json:"CreatedAt"`
 	UpdatedAt time.Time `json:"UpdatedAt"`
 }
+
+func (a *Task) Update(description string) *Task {
+	a.Description = description
+	return a
+}
