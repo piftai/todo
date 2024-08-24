@@ -44,7 +44,7 @@ func (tm *TaskManager) saveTasks() error {
 // added a task into file
 func (tm *TaskManager) AddTask(description string) error {
 	task := Task{
-		ID:          len(tm.tasks) + 1,
+		ID:          len(tm.tasks) + 1, // there a existing a bug when you can create two tasks with same id
 		Description: description,
 		Status:      "todo",
 		CreatedAt:   time.Now(),
@@ -83,4 +83,15 @@ func (tm *TaskManager) ShowTask(taskID int) *Task {
 		}
 	}
 	return nil
+}
+
+func (tm *TaskManager) DeleteTask(taskID int) bool {
+	for i := 0; i < len(tm.tasks); i++ {
+		if tm.tasks[i].ID == taskID {
+			tm.tasks = append(tm.tasks[:i], tm.tasks[i+1:]...)
+			tm.saveTasks()
+			return true
+		}
+	}
+	return false
 }

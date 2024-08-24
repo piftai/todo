@@ -39,8 +39,21 @@ func main() {
 		_ = err
 		description := os.Args[3]
 		tm.UpdateTask(taskID, description)
-		fmt.Println(tm.ShowTask(taskID).Description)
+		fmt.Println("The task was successfully upgraded. The new "+
+			"description is ", tm.ShowTask(taskID).Description)
+
+	case "delete":
+		taskIDStr := os.Args[2]
+		taskID, err := strconv.Atoi(taskIDStr)
+		if err != nil {
+			return
+		}
+		isSuccess := tm.DeleteTask(taskID)
+		if isSuccess == false {
+			fmt.Println("ERROR NOT FOUNDED ANY TASK WITH THAT ID")
+		}
 	}
 
 }
+
 // i like to code
