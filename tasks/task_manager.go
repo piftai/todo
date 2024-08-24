@@ -7,11 +7,11 @@ import (
 )
 
 type TaskManager struct {
-	tasks []Task
+	tasks    []Task
 	filePath string
 }
 
-// constructor of TaskManager structure 
+// constructor of TaskManager structure
 func NewTaskManager(filePath string) (*TaskManager, error) {
 	tm := &TaskManager{filePath: filePath}
 	err := tm.loadTasks()
@@ -31,7 +31,8 @@ func (tm *TaskManager) loadTasks() error {
 	return json.Unmarshal(data, &tm.tasks)
 }
 
-// writing a task into file
+// this func should be written at end of every func that communicate with tm object.
+// func saving changing
 func (tm *TaskManager) saveTasks() error {
 	data, err := json.MarshalIndent(tm.tasks, "", " ")
 	if err != nil {
@@ -42,12 +43,12 @@ func (tm *TaskManager) saveTasks() error {
 
 // added a task into file
 func (tm *TaskManager) AddTask(description string) error {
-	task := Task {
-		ID: len(tm.tasks) + 1,
+	task := Task{
+		ID:          len(tm.tasks) + 1,
 		Description: description,
-		Status: "todo",
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		Status:      "todo",
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 	tm.tasks = append(tm.tasks, task)
 	return tm.saveTasks()
@@ -59,19 +60,23 @@ func (tm *TaskManager) ListTasks() ([]byte, error) {
 }
 
 // return updated task by id and new description
-func (tm *TaskManager) UpdateTask(taskID int, description string) (*Task) {
-	for _, task := range tm.tasks {
-		if task.ID == taskID {
-			task.Update(description)
-			return &task
+func (tm *TaskManager) UpdateTask(taskID int, description string) *Task {
+	for i := range tm.tasks {
+		if tm.tasks[i].ID == taskID {
+			tm.tasks[i].Description = description
+			tm.tasks[i].UpdatedAt = time.Now()
+			anyError := tm.saveTasks()
+			if anyError != nil {
+				return nil
+			}
+			return &tm.tasks[i]
 		}
 	}
 	return nil
 }
 
-
-// return pointer of task by id 
-func (tm *TaskManager) ShowTask(taskID int) (*Task) {
+// return pointer of task by id
+func (tm *TaskManager) ShowTask(taskID int) *Task {
 	for _, task := range tm.tasks {
 		if task.ID == taskID {
 			return &task
@@ -79,4 +84,3 @@ func (tm *TaskManager) ShowTask(taskID int) (*Task) {
 	}
 	return nil
 }
-
